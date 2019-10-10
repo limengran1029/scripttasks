@@ -1,7 +1,7 @@
 #! /bin/bash
 
 TIME=$1
-PROCESS=`echo ${@:2}`
+PROCESS=${@:2}
 
 $PROCESS &
 PID=$!
