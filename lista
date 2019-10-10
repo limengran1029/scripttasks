@@ -1,0 +1,51 @@
+#! /bin/bash
+
+## check the argument
+if [ "$#" != 1 ];then
+	echo "Error! Usager: $0 <Path> "
+	exit 1
+fi
+
+
+## definite the variable
+PRINT="..."
+
+
+## definite list function
+list(){
+	for ARG in *;do
+		if [ -f "$ARG" ];then
+                        echo "$PRINT[F]$ARG"
+                elif [ -L "$ARG" ];then
+                        echo "$PRINT[L]$ARG"
+                elif [ -d "$ARG" ];then
+                        echo "$PRINT[D]$ARG"
+			PRINT="$PRINT""..."
+			if cd "$ARG";then
+				list
+				cd ..
+			else
+				echo "$PRINT???"
+			fi 2>/dev/null
+			PRINT=${PRINT#"..."}
+                fi
+	done
+}
+
+
+## list
+if [ ! -e "$1" ];then
+	echo "[?]$1"
+        exit 1
+elif [ -f "$1" ];then
+	echo "[F]$1"
+elif [ -L "$1" ];then
+        echo "[L]$1"
+elif [ -d "$1" ];then
+        echo "[D]$1"
+	if cd "$1";then
+		list
+	else
+		echo "???"
+	fi
+fi

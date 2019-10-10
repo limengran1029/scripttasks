@@ -1,0 +1,11 @@
+#! /bin/bash
+
+tar jxvf curl-7.61.1.tar.bz2 && \
+cd curl-7.61.1 && \
+if [ ! -e /opt/curl ]; then sudo mkdir /opt/curl; fi && \
+./configure --prefix=/opt/curl && \
+make && \
+make check && \
+sudo make install && \
+cd .. && \
+rm -rf curl-7.61.1

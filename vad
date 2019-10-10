@@ -1,0 +1,56 @@
+#! /bin/bash
+
+
+check(){
+
+#Check if the main parameters are complete
+if [ "$#" -eq 0 ];then
+        echo "Ja, vad?"
+        exit 1
+elif [ "$1" != "är" ] && [ "$1" != "innehåller" ];then
+        echo "Fattar inte."
+        exit 1
+else
+        if [ "$#" -eq 1 ];then
+                echo "vad $1 vad?"
+                exit 1
+        fi
+fi
+
+#loop between arguments
+ARRAY=($@)
+for ((i=1; i<($#); ++i)); do
+	#View arguments' type
+	if [ "$1" == "är" ];then     
+		if [ ! -e "${ARRAY[i]}" ];then
+			echo "${ARRAY[i]} finns inte."
+			exit 2
+		elif [ -d "${ARRAY[i]}" ];then
+			echo "${ARRAY[i]} $1 en katalog."
+		elif [ -L "${ARRAY[i]}" ];then
+			echo "${ARRAY[i]} $1 en länk."
+		else
+			echo "${ARRAY[i]} $1 en fil."
+		fi
+	#check packet that paths belongs
+	elif [ "$1" == "innehåller" ];then
+		if dpkg -S "${ARRAY[i]}" >/dev/null 2>&1;then	
+			RESULT=$(dpkg -S "${ARRAY[i]}")
+			echo -n "${ARRAY[i]} finns i "
+			echo "$RESULT" | cut -f2 -d"-" | cut -f1 -d":"
+		else 
+			echo "inget innehåller ${ARRAY[i]}"
+			exit 2
+		fi
+	fi
+done
+}
+
+#if the first arg is -q, no output should be made to the standard output
+if [ "$1" == "-q" ];then
+        shift
+	check "$@" >/dev/null 2>&1
+else 
+	check "$@"
+fi
+
