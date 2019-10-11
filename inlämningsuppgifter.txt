@@ -1,0 +1,54 @@
+Inlämningsuppgift 1
+
+1. Hur fungerar omgivningen, och vad är poängen med omgivningsvariabler?
+svar:
+Omgivningen är plattformen (operativsystem och process) där användare kan köra program.
+omgivningsvariabler är dynamiska värden som påverkar processerna eller programmen på en dator. Dem kan ändras så att de passar användarnas behov inom sina miljöer.
+
+2. Antag att ett Bash-skript körs i en terminal och att man från en annan terminal skickar en signal till den processen. Vilka av signalerna HUP, INT, QUIT, KILL, TERM, USR1 avslutar processen?
+svar:
+Signalerna HUP, INT, QUIT, KILL, TERM kan avskutar processen, men de är inte i samma nivå när det gäller hårdhet. 
+USR1 är en användardefinierad signal som du kan använda för alla definierade ändamål, men har också default action "Term".
+
+3. skript:  filedownload
+
+4. skript:  install
+
+
+Inlämningsuppgift 2
+Jag lyckades till att installera en ubuntu-maskin med LAMP miljö samt en PHP fil som kan visa databaser på websidan "ipadress/database.php".
+Alla filer om uppgiften ligger under katalogen "/vagrant":
+	install.sh : innehåller kommandor som kan bygga vagrantmaskin.
+	change.sh : skript som ersätter config-shell i Vagrantfile.
+	configfile : kommandor some config och installera tjänster till vagrantmaskin.
+	sharefolder: en katalog som kan share med vagrantmaskinen för att skicka filer.
+	Vagrantfile
+
+
+Inlämningsuppgift 3
+
+3.1 - 3.6  skript:  vad
+
+3.7
+Om ssh-agent inte startas automatiskt vid inloggningen kan man starta den genom att ge kommandot eval $(ssh-agent). Berätta lite om vad som händer när man ger det kommandot och varför man behöver göra på det sättet och inte genom ett enklare kommando utan eval.
+svar:
+ssh-agent skrivar ut de omgivningsvariabler man behöver för att koppla till den. Genom eval laddar man dessa variabler i sin omgivning.
+Process kan bara ändra sina egna omgivningsvariabler och överföra dem till barn. Det kan inte ändra sin förälderprocess omgivningsvariabler eftersom systemet inte tillåter det.
+
+3.8  skript:  poäng
+
+3.9  skript:  disk_full
+
+3.10
+Vid många typer av automatisering kan man välja något av verktygen bash, sed, awk eller python. Vad har verktygen för för- och nackdelar? För vilken typ av uppgifter passar respektive verktyg bäst?
+svar:
+Bash: kraftfullt och enkelt, Men också primitivt och långsamt samt finns stor risk för allvarliga fel om man inte vet exakt hur det fungerar.
+      bash är bra för Automatisering av bl.a. sysadm, och uppgifter som huvudsakligen består av att köra och samordna andra program.
+python: avancerat objektorienterat språk, men komplicerad och behöver att installera.
+        passar stora eller Komplexa uppgifter.
+Seed: enkla och effektiva, bearbetar hela rader， används för att förändra text
+AWK: har starka analytiska förmåga. hantera stora textkroppar, sortera ut vissa kolumner, skapa filter och bra på beräkningen，används mest för analys och rapportering.
+
+3.11  skript:  lista
+
+3.12  skript:  timeout.bash

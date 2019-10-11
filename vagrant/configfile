@@ -1,0 +1,24 @@
+#update
+sudo apt update
+
+#install apache2 och change the front page
+sudo apt install -y apache2
+sudo systemctl enable apache2
+sudo bash -c 'echo "DEVOPS18" > /var/www/html/index.html'
+
+#install vim
+sudo apt install -y vim
+
+#install mysql
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+sudo debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+sudo apt-get -y install mysql-server
+
+#install 
+sudo apt-get -y install php libapache2-mod-php php-mysql
+
+#change the front page to PHP
+sudo bash -c 'sed -E -i.bak "s/(.*)(index.html)(.*)(index.php)(.*)/\1\4\3\2\5/" /etc/apache2/mods-enabled/dir.conf'
+
+#copy php file into vagrant machine
+sudo cp /home/vagrant/share/database.php /var/www/html/
